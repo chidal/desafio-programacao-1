@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module DesafioNexaas
+module TabFileReader
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     ActionController::Parameters.permit_all_parameters = true
