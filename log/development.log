@@ -1,0 +1,823 @@
+  [1m[35m (554.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (170.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1398899371383284085)[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreatePurchaser (20180512210106)
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_advisory_unlock(1398899371383284085)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1398899371383284085)[0m
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreatePurchase (20180512210106)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (99.6ms)[0m  [1m[35mCREATE TABLE "purchases" ("id" bigserial primary key, "purchaser_name" character varying, "item_description" character varying, "item_price" float, "purchase_count" integer, "merchant_address" text, "merchant_name" text)[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180512210106"]]
+  [1m[35m (17.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (28.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2018-05-12 21:54:49.658957"], ["updated_at", "2018-05-12 21:54:49.658957"]]
+  [1m[35m (14.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(1398899371383284085)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2018-05-12 20:16:56 -0300
+  [1m[35m (20.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PurchaseController#index as HTML
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (170.2ms)
+Completed 200 OK in 1208ms (Views: 1193.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-12 20:26:13 -0300
+  [1m[35m (26.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PurchaseController#index as HTML
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (82.2ms)
+Completed 500 Internal Server Error in 193ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (No route matches {:action=>"upload", :controller=>"purchase"}):
+    1: <%= form_tag({action: :upload}, multipart: true) do |f| %>
+    2:   <%= f.file_field_tag :document %>
+    3: <% end %>
+  
+app/views/purchases/index.erb:1:in `_app_views_purchases_index_erb___3343227674429575858_47114635312180'
+app/controllers/purchase_controller.rb:5:in `index'
+Started GET "/" for 127.0.0.1 at 2018-05-12 20:31:22 -0300
+  [1m[35m (11.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PurchaseController#index as HTML
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (23.3ms)
+Completed 500 Internal Server Error in 83ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined method `file_field_tag' for nil:NilClass):
+    1: <%= form_tag({action: :upload}, multipart: true) do |f| %>
+    2:   <%= f.file_field_tag :document %>
+    3: <% end %>
+  
+app/views/purchases/index.erb:2:in `block in _app_views_purchases_index_erb__451690313966588630_47382450574800'
+app/views/purchases/index.erb:1:in `_app_views_purchases_index_erb__451690313966588630_47382450574800'
+app/controllers/purchase_controller.rb:5:in `index'
+Started GET "/" for 127.0.0.1 at 2018-05-12 20:32:23 -0300
+Processing by PurchaseController#index as HTML
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (21.5ms)
+  [1m[36mPurchase Load (12.5ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Purchase Load (0.1ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+Completed 200 OK in 13413ms (Views: 1061.9ms | ActiveRecord: 295.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-12 20:33:08 -0300
+Processing by PurchaseController#index as HTML
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (19.9ms)
+  [1m[36mPurchase Load (1.2ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+Completed 200 OK in 7729ms (Views: 66.5ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-12 20:35:32 -0300
+Processing by PurchaseController#index as HTML
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (109.9ms)
+  [1m[36mPurchase Load (62.4ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+Completed 200 OK in 3758ms (Views: 360.0ms | ActiveRecord: 62.4ms)
+
+
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (71.4ms)[0m  [1m[32mINSERT INTO "purchases" DEFAULT VALUES RETURNING "id"[0m
+  [1m[35m (82.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPurchase Load (0.4ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPurchase Load (11.3ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (53.9ms)[0m  [1m[32mINSERT INTO "purchases" DEFAULT VALUES RETURNING "id"[0m
+  [1m[35m (47.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPurchase Load (0.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPurchase Load (1.5ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.4ms)[0m  [1m[32mINSERT INTO "purchases" DEFAULT VALUES RETURNING "id"[0m
+  [1m[35m (67.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPurchase Load (0.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPurchase Load (0.8ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 3]]
+  [1m[35m (20.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[33mUPDATE "purchases" SET "id" = $1 WHERE "purchases"."id" = $2[0m  [["id", 4], ["id", 3]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPurchase Load (0.5ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 4]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPurchase Load (0.8ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPurchase Load (0.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPurchase Load (0.8ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" WHERE "purchases"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" WHERE "purchases"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mPurchase Exists (23.2ms)[0m  [1m[34mSELECT  1 AS one FROM "purchases" WHERE (id < 3) LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPurchase Load (0.4ms)[0m  [1m[34mSELECT "purchases".* FROM "purchases" WHERE (id < 3)[0m
+  [1m[36mPurchase Load (1412.8ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPurchase Load (0.9ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (22.2ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["purchaser_name", "Teste!"], ["item_price", 10.0], ["purchase_count", 2], ["merchant_address", "46, Seu Cú Ave"], ["merchant_name", "I don't know Store"]]
+  [1m[35m (126.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (52.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "purchases"[0m
+  [1m[36mPurchase Load (0.8ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.3ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Teste!"], ["item_description", "A pair of men's underwear"], ["item_price", 20.0], ["purchase_count", 1], ["merchant_address", "46, Seu Pau Ave"], ["merchant_name", "I don't know Store"]]
+  [1m[35m (18.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPurchase Load (0.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 2]]
+  [1m[36mPurchase Load (0.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPurchase Load (1.0ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+Started GET "/" for 127.0.0.1 at 2018-05-14 09:47:43 -0300
+  [1m[35m (52.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PurchaseController#index as HTML
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (8.1ms)
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+Completed 200 OK in 863ms (Views: 716.2ms | ActiveRecord: 28.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 09:53:26 -0300
+Processing by PurchaseController#index as HTML
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (56.5ms)
+Completed 500 Internal Server Error in 62ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined method `<=' for nil:NilClass):
+     6: 
+     7: <b> %%%%%%%%%%%%% </b>
+     8: 
+     9: <% if @last_purchases <= 0 %>
+    10:   <%= "Não há compras recentes!" %>
+    11: <% elsif @last_purchases > 0 %>
+    12:   <% @last_purchases.each do |purchase| %>
+  
+app/views/purchases/index.erb:9:in `_app_views_purchases_index_erb___2091220269823347245_70030664741540'
+app/controllers/purchase_controller.rb:5:in `index'
+Started GET "/" for 127.0.0.1 at 2018-05-14 09:54:15 -0300
+Processing by PurchaseController#index as HTML
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (5.5ms)
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined method `<=' for nil:NilClass):
+     6: 
+     7: <b> %%%%%%%%%%%%% </b>
+     8: 
+     9: <% if @last_purchases <= 0 %>
+    10:   <%= "Não há compras recentes!" %>
+    11: <% elsif @last_purchases > 0 %>
+    12:   <% @last_purchases.each do |purchase| %>
+  
+app/views/purchases/index.erb:9:in `_app_views_purchases_index_erb___2091220269823347245_70030617636640'
+app/controllers/purchase_controller.rb:5:in `index'
+Started GET "/" for 127.0.0.1 at 2018-05-14 09:54:36 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.5ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Purchase Load (0.0ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Purchase Load (0.0ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (8.4ms)
+Completed 500 Internal Server Error in 14508ms (ActiveRecord: 6.4ms)
+
+
+  
+ActionView::Template::Error (undefined method `<=' for #<Array:0x00007f6294301a58>
+Did you mean?  <=>):
+     6: 
+     7: <b> %%%%%%%%%%%%% </b>
+     8: 
+     9: <% if @last_purchases <= 0 %>
+    10:   <%= "Não há compras recentes!" %>
+    11: <% elsif @last_purchases > 0 %>
+    12:   <% @last_purchases.each do |purchase| %>
+  
+app/views/purchases/index.erb:9:in `_app_views_purchases_index_erb___2091220269823347245_70030684828600'
+app/controllers/purchase_controller.rb:7:in `index'
+Started GET "/" for 127.0.0.1 at 2018-05-14 09:55:20 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (7.5ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (7.9ms)
+Completed 500 Internal Server Error in 83ms (ActiveRecord: 19.8ms)
+
+
+  
+ActionView::Template::Error (undefined method `<=' for #<Array:0x00007f62a400db70>
+Did you mean?  <=>):
+     6: 
+     7: <b> %%%%%%%%%%%%% </b>
+     8: 
+     9: <% if @last_purchases <= 0 %>
+    10:   <%= "Não há compras recentes!" %>
+    11: <% elsif @last_purchases > 0 %>
+    12:   <% @last_purchases.each do |purchase| %>
+  
+app/views/purchases/index.erb:9:in `_app_views_purchases_index_erb___2091220269823347245_70030448456880'
+app/controllers/purchase_controller.rb:7:in `index'
+Started GET "/" for 127.0.0.1 at 2018-05-14 09:55:43 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (7.1ms)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 0.6ms)
+
+
+  
+ActionView::Template::Error (undefined method `>' for #<Array:0x00007f628c822120>):
+     8: 
+     9: <% if @last_purchases.size <= 0 %>
+    10:   <%= "Não há compras recentes!" %>
+    11: <% elsif @last_purchases > 0 %>
+    12:   <% @last_purchases.each do |purchase| %>
+    13:     <% input_tag "purchaser_name_purchase_id_#{purchase.id}", purchase.purchase_name %></br>
+    14:   <% end %>
+  
+app/views/purchases/index.erb:11:in `_app_views_purchases_index_erb___2091220269823347245_70030620426540'
+app/controllers/purchase_controller.rb:7:in `index'
+Started GET "/" for 127.0.0.1 at 2018-05-14 09:55:55 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (2.1ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (46.4ms)
+Completed 500 Internal Server Error in 58ms (ActiveRecord: 2.1ms)
+
+
+  
+ActionView::Template::Error (undefined method `purchase_name' for #<Purchase:0x00007f62933e52b8>
+Did you mean?  purchaser_name
+               purchaser_name?
+               purchaser_name=):
+    10:   <%= "Não há compras recentes!" %>
+    11: <% elsif @last_purchases.size > 0 %>
+    12:   <% @last_purchases.each do |purchase| %>
+    13:     <% input_tag "purchaser_name_purchase_id_#{purchase.id}", purchase.purchase_name %></br>
+    14:   <% end %>
+    15: <% end %>
+  
+app/views/purchases/index.erb:13:in `block in _app_views_purchases_index_erb___2091220269823347245_70030817530800'
+app/views/purchases/index.erb:12:in `each'
+app/views/purchases/index.erb:12:in `_app_views_purchases_index_erb___2091220269823347245_70030817530800'
+app/controllers/purchase_controller.rb:7:in `index'
+Started GET "/" for 127.0.0.1 at 2018-05-14 09:56:12 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.8ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (342.1ms)
+Completed 500 Internal Server Error in 352ms (ActiveRecord: 0.8ms)
+
+
+  
+ActionView::Template::Error (undefined method `input_tag' for #<#<Class:0x00007f62a400d7b0>:0x00007f628c6d8ff8>):
+    10:   <%= "Não há compras recentes!" %>
+    11: <% elsif @last_purchases.size > 0 %>
+    12:   <% @last_purchases.each do |purchase| %>
+    13:     <% input_tag "purchaser_name_purchase_id_#{purchase.id}", purchase.purchaser_name %></br>
+    14:   <% end %>
+    15: <% end %>
+  
+app/views/purchases/index.erb:13:in `block in _app_views_purchases_index_erb___2091220269823347245_70030619753920'
+app/views/purchases/index.erb:12:in `each'
+app/views/purchases/index.erb:12:in `_app_views_purchases_index_erb___2091220269823347245_70030619753920'
+app/controllers/purchase_controller.rb:7:in `index'
+Started GET "/" for 127.0.0.1 at 2018-05-14 09:57:22 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (11.5ms)
+Completed 500 Internal Server Error in 21ms (ActiveRecord: 0.6ms)
+
+
+  
+ActionView::Template::Error (No route matches {:action=>"remove", :controller=>"purchase"}):
+    10:   <%= "Não há compras recentes!" %>
+    11: <% elsif @last_purchases.size > 0 %>
+    12:   <% @last_purchases.each do |purchase| %>
+    13:     <%= form_tag({action: :remove}, multipart: true) do %>
+    14:       <%= input_tag "purchaser_name_purchase_id_#{purchase.id}", purchase.purchaser_name %></br>
+    15:     <% end %>
+    16:   <% end %>
+  
+app/views/purchases/index.erb:13:in `block in _app_views_purchases_index_erb___2091220269823347245_70030619633060'
+app/views/purchases/index.erb:12:in `each'
+app/views/purchases/index.erb:12:in `_app_views_purchases_index_erb___2091220269823347245_70030619633060'
+app/controllers/purchase_controller.rb:7:in `index'
+Started GET "/" for 127.0.0.1 at 2018-05-14 09:58:35 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (422.8ms)
+Completed 500 Internal Server Error in 481ms (ActiveRecord: 8.5ms)
+
+
+  
+ActionView::Template::Error (undefined method `input_tag' for #<#<Class:0x00007f6293184780>:0x00007f62931caaf0>):
+    11: <% elsif @last_purchases.size > 0 %>
+    12:   <% @last_purchases.each do |purchase| %>
+    13:     <%= form_tag({action: :remove}, multipart: true) do %>
+    14:       <%= input_tag "purchaser_name_purchase_id_#{purchase.id}", purchase.purchaser_name %></br>
+    15:     <% end %>
+    16:   <% end %>
+    17: <% end %>
+  
+app/views/purchases/index.erb:14:in `block (2 levels) in _app_views_purchases_index_erb___2091220269823347245_70030675823600'
+app/views/purchases/index.erb:13:in `block in _app_views_purchases_index_erb___2091220269823347245_70030675823600'
+app/views/purchases/index.erb:12:in `each'
+app/views/purchases/index.erb:12:in `_app_views_purchases_index_erb___2091220269823347245_70030675823600'
+app/controllers/purchase_controller.rb:7:in `index'
+Started GET "/" for 127.0.0.1 at 2018-05-14 09:59:35 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (1.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (5.4ms)
+Completed 200 OK in 567ms (Views: 561.5ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 10:07:46 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (107.9ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (4.9ms)
+Completed 200 OK in 772ms (Views: 267.6ms | ActiveRecord: 107.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 10:08:36 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.8ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (3.8ms)
+Completed 200 OK in 41ms (Views: 37.6ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 10:09:06 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.5ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (304840.9ms)
+Completed 200 OK in 304922ms (Views: 304916.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 10:15:03 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (7194.2ms)
+Completed 200 OK in 7249ms (Views: 7244.4ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 10:18:12 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (7929.9ms)
+Completed 200 OK in 7962ms (Views: 7957.7ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 10:19:00 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.8ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (5.8ms)
+Completed 200 OK in 61ms (Views: 56.5ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 10:19:19 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (7.2ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (5.0ms)
+Completed 200 OK in 90ms (Views: 75.8ms | ActiveRecord: 7.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 10:20:01 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (4.3ms)
+Completed 200 OK in 54ms (Views: 49.0ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 10:23:48 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (3.4ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (4.1ms)
+Completed 200 OK in 191ms (Views: 154.6ms | ActiveRecord: 3.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 10:28:55 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (1.3ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (28.9ms)
+Completed 200 OK in 107ms (Views: 95.9ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 10:29:21 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.8ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (4.2ms)
+Completed 200 OK in 40ms (Views: 36.8ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 10:29:40 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (5.2ms)
+Completed 200 OK in 63ms (Views: 58.7ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 10:30:25 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (4.9ms)
+Completed 200 OK in 44ms (Views: 39.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 10:43:34 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (1.2ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (6.5ms)
+Completed 200 OK in 53ms (Views: 49.1ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 10:44:34 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (8.5ms)
+Completed 200 OK in 63ms (Views: 58.8ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/upload" for 127.0.0.1 at 2018-05-14 10:45:09 -0300
+Processing by PurchaseController#upload as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"8mBsR3Op/I0qlQ+2s1NSAk2k8H7uhCUG8oHSw+rudS3abylta09IY7IJzuOJsKGTlspjuUtHfbqCQ2/0bRiO/w==", "document"=>#<ActionDispatch::Http::UploadedFile:0x00007f628c565ef0 @tempfile=#<Tempfile:/tmp/RackMultipart20180514-23845-r063rr.tab>, @original_filename="example_input.tab", @content_type="application/octet-stream", @headers="Content-Disposition: form-data; name=\"document\"; filename=\"example_input.tab\"\r\nContent-Type: application/octet-stream\r\n">, "commit"=>"Ler & Salvar"}
+No template found for PurchaseController#upload, rendering head :no_content
+Completed 204 No Content in 79688ms (ActiveRecord: 0.0ms)
+
+
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (502.9ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name") VALUES ($1) RETURNING "id"[0m  [["purchaser_name", "[\"João Silva\\tR$10 off R$20 of food\\t10.0\\t2\\t987 Fake St\\tBob's Pizza\", \"Amy Pond\\tR$30 of awesome for R$10\\t10.0\\t5\\t456 Unreal Rd\\tTom's Awesome Shop\", \"Marty McFly\\tR$20 Sneakers for R$5\\t5.0\\t1\\t123 Fake St\\tSneaker Store Emporium\", \"Snake Plissken\\tR$20 Sneakers for R$5\\t5.0\\t4\\t123 Fake St\\tSneaker Store Emporium\"]"]]
+  [1m[35m (114.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPurchase Exists (0.9ms)[0m  [1m[34mSELECT  1 AS one FROM "purchases" LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPurchase Load (0.4ms)[0m  [1m[34mSELECT "purchases".* FROM "purchases"[0m
+  [1m[36mPurchase Load (0.5ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 6]]
+  [1m[35m (20.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPurchase Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "purchases" LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPurchase Load (0.4ms)[0m  [1m[34mSELECT "purchases".* FROM "purchases"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.3ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "João Silva"], ["item_description", "R$10 off R$20 of food"], ["item_price", 10.0], ["purchase_count", 2], ["merchant_address", "987 Fake St"], ["merchant_name", "Bob's Pizza"]]
+  [1m[35m (45.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.4ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Amy Pond"], ["item_description", "R$30 of awesome for R$10"], ["item_price", 10.0], ["purchase_count", 5], ["merchant_address", "456 Unreal Rd"], ["merchant_name", "Tom's Awesome Shop"]]
+  [1m[35m (14.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.6ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Marty McFly"], ["item_description", "R$20 Sneakers for R$5"], ["item_price", 5.0], ["purchase_count", 1], ["merchant_address", "123 Fake St"], ["merchant_name", "Sneaker Store Emporium"]]
+  [1m[35m (35.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.8ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Snake Plissken"], ["item_description", "R$20 Sneakers for R$5"], ["item_price", 5.0], ["purchase_count", 4], ["merchant_address", "123 Fake St"], ["merchant_name", "Sneaker Store Emporium"]]
+  [1m[35m (9.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  [1m[36mPurchase Load (0.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 4]]
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 4]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 7]]
+  [1m[35m (35.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 8]]
+  [1m[35m (8.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 9]]
+  [1m[35m (9.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 10]]
+  [1m[35m (8.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPurchase Load (0.9ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (30.4ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "João Silva"], ["item_description", "R$10 off R$20 of food"], ["item_price", 10.0], ["purchase_count", 2], ["merchant_address", "987 Fake St"], ["merchant_name", "Bob's Pizza"]]
+  [1m[35m (46.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Amy Pond"], ["item_description", "R$30 of awesome for R$10"], ["item_price", 10.0], ["purchase_count", 5], ["merchant_address", "456 Unreal Rd"], ["merchant_name", "Tom's Awesome Shop"]]
+  [1m[35m (7.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Marty McFly"], ["item_description", "R$20 Sneakers for R$5"], ["item_price", 5.0], ["purchase_count", 1], ["merchant_address", "123 Fake St"], ["merchant_name", "Sneaker Store Emporium"]]
+  [1m[35m (5.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.3ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Snake Plissken"], ["item_description", "R$20 Sneakers for R$5"], ["item_price", 5.0], ["purchase_count", 4], ["merchant_address", "123 Fake St"], ["merchant_name", "Sneaker Store Emporium"]]
+  [1m[35m (14.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPurchase Load (0.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 4]]
+Started GET "/" for 127.0.0.1 at 2018-05-14 16:55:25 -0300
+  [1m[35m (90.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.5ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (33.7ms)
+Completed 200 OK in 961ms (Views: 811.5ms | ActiveRecord: 6.1ms)
+
+
+  [1m[36mPurchase Load (1.3ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 4]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (27.6ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 11]]
+  [1m[35m (53.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 12]]
+  [1m[35m (8.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 13]]
+  [1m[35m (8.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 14]]
+  [1m[35m (9.2ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for 127.0.0.1 at 2018-05-14 16:56:06 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (1.1ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (4.7ms)
+Completed 200 OK in 93ms (Views: 72.7ms | ActiveRecord: 8.6ms)
+
+
+Started POST "/upload" for 127.0.0.1 at 2018-05-14 16:56:23 -0300
+Processing by PurchaseController#upload as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"xHtz2DVD+N/3cSrAUxBC4QU5QrmzJyd+LxW4XJDkD+zsdDbyLaVMMW/t65Vp87Fw3lfRfhbkf8Jf1wVrFxL0Pg==", "document"=>#<ActionDispatch::Http::UploadedFile:0x00007f29e9011610 @tempfile=#<Tempfile:/tmp/RackMultipart20180514-31406-1yub8e1.tab>, @original_filename="example_input.tab", @content_type="application/octet-stream", @headers="Content-Disposition: form-data; name=\"document\"; filename=\"example_input.tab\"\r\nContent-Type: application/octet-stream\r\n">, "commit"=>"Ler & Salvar"}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (237.3ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Jo\xC3\xA3o Silva"], ["item_description", "R$10 off R$20 of food"], ["item_price", 10.0], ["purchase_count", 2], ["merchant_address", "987 Fake St"], ["merchant_name", "Bob's Pizza"]]
+  [1m[35m (121.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Amy Pond"], ["item_description", "R$30 of awesome for R$10"], ["item_price", 10.0], ["purchase_count", 5], ["merchant_address", "456 Unreal Rd"], ["merchant_name", "Tom's Awesome Shop"]]
+  [1m[35m (79.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Marty McFly"], ["item_description", "R$20 Sneakers for R$5"], ["item_price", 5.0], ["purchase_count", 1], ["merchant_address", "123 Fake St"], ["merchant_name", "Sneaker Store Emporium"]]
+  [1m[35m (51.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Snake Plissken"], ["item_description", "R$20 Sneakers for R$5"], ["item_price", 5.0], ["purchase_count", 4], ["merchant_address", "123 Fake St"], ["merchant_name", "Sneaker Store Emporium"]]
+  [1m[35m (95.9ms)[0m  [1m[35mCOMMIT[0m
+No template found for PurchaseController#upload, rendering head :no_content
+Completed 204 No Content in 676ms (ActiveRecord: 588.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 16:56:35 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.8ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (28.6ms)
+Completed 200 OK in 71ms (Views: 62.8ms | ActiveRecord: 0.8ms)
+
+
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 4]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 15]]
+  [1m[35m (16.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 16]]
+  [1m[35m (8.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 17]]
+  [1m[35m (7.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 18]]
+  [1m[35m (19.0ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for 127.0.0.1 at 2018-05-14 16:57:10 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (1.0ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (19.9ms)
+Completed 200 OK in 164ms (Views: 104.4ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/upload" for 127.0.0.1 at 2018-05-14 16:57:32 -0300
+Processing by PurchaseController#upload as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"60cSnYqV0MqVWSx8r2evL+yLIyZUrsNUNZSeOJ9kaZbDSFe3knNkJA3F7SmVhFy+N+Ww4fFtm+hFViMPGJKSRA==", "document"=>#<ActionDispatch::Http::UploadedFile:0x00007f29e9701df8 @tempfile=#<Tempfile:/tmp/RackMultipart20180514-31406-lrqr4.tab>, @original_filename="example_input.tab", @content_type="application/octet-stream", @headers="Content-Disposition: form-data; name=\"document\"; filename=\"example_input.tab\"\r\nContent-Type: application/octet-stream\r\n">, "commit"=>"Ler & Salvar"}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Jo\xC3\xA3o Silva"], ["item_description", "R$10 off R$20 of food"], ["item_price", 10.0], ["purchase_count", 2], ["merchant_address", "987 Fake St"], ["merchant_name", "Bob's Pizza"]]
+  [1m[35m (23.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Amy Pond"], ["item_description", "R$30 of awesome for R$10"], ["item_price", 10.0], ["purchase_count", 5], ["merchant_address", "456 Unreal Rd"], ["merchant_name", "Tom's Awesome Shop"]]
+  [1m[35m (56.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Marty McFly"], ["item_description", "R$20 Sneakers for R$5"], ["item_price", 5.0], ["purchase_count", 1], ["merchant_address", "123 Fake St"], ["merchant_name", "Sneaker Store Emporium"]]
+  [1m[35m (44.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Snake Plissken"], ["item_description", "R$20 Sneakers for R$5"], ["item_price", 5.0], ["purchase_count", 4], ["merchant_address", "123 Fake St"], ["merchant_name", "Sneaker Store Emporium"]]
+  [1m[35m (49.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 500 Internal Server Error in 587ms (ActiveRecord: 178.9ms)
+
+
+  
+NameError (undefined local variable or method `purchase_index_path' for #<PurchaseController:0x00007f29e9724998>):
+  
+app/controllers/purchase_controller.rb:15:in `upload'
+Started GET "/" for 127.0.0.1 at 2018-05-14 16:57:40 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (1.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (17.2ms)
+Completed 200 OK in 49ms (Views: 43.6ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 16:58:41 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (13.8ms)
+Completed 200 OK in 73ms (Views: 41.6ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 16:58:49 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.9ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (9.3ms)
+Completed 200 OK in 40ms (Views: 36.0ms | ActiveRecord: 0.9ms)
+
+
+  [1m[36mPurchase Load (0.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 4]]
+  [1m[35m (2.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (3.5ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 19]]
+  [1m[35m (13.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 20]]
+  [1m[35m (8.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 21]]
+  [1m[35m (7.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 22]]
+  [1m[35m (8.2ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for 127.0.0.1 at 2018-05-14 16:59:23 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.5ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (3.9ms)
+Completed 200 OK in 37ms (Views: 33.9ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/upload" for 127.0.0.1 at 2018-05-14 16:59:32 -0300
+Processing by PurchaseController#upload as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"OPu/Bbr0aLLp2AEm8gj8sU3w6Jfh7izl9nAIpqTPh4IQ9PovohLcXHFEwHPI6w8glp57UEQtdFmGsrWRIzl8UA==", "document"=>#<ActionDispatch::Http::UploadedFile:0x00007f29f41eeb30 @tempfile=#<Tempfile:/tmp/RackMultipart20180514-31406-1yg2ka2.tab>, @original_filename="example_input.tab", @content_type="application/octet-stream", @headers="Content-Disposition: form-data; name=\"document\"; filename=\"example_input.tab\"\r\nContent-Type: application/octet-stream\r\n">, "commit"=>"Ler & Salvar"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Jo\xC3\xA3o Silva"], ["item_description", "R$10 off R$20 of food"], ["item_price", 10.0], ["purchase_count", 2], ["merchant_address", "987 Fake St"], ["merchant_name", "Bob's Pizza"]]
+  [1m[35m (52.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Amy Pond"], ["item_description", "R$30 of awesome for R$10"], ["item_price", 10.0], ["purchase_count", 5], ["merchant_address", "456 Unreal Rd"], ["merchant_name", "Tom's Awesome Shop"]]
+  [1m[35m (40.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Marty McFly"], ["item_description", "R$20 Sneakers for R$5"], ["item_price", 5.0], ["purchase_count", 1], ["merchant_address", "123 Fake St"], ["merchant_name", "Sneaker Store Emporium"]]
+  [1m[35m (7.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "purchases" ("purchaser_name", "item_description", "item_price", "purchase_count", "merchant_address", "merchant_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["purchaser_name", "Snake Plissken"], ["item_description", "R$20 Sneakers for R$5"], ["item_price", 5.0], ["purchase_count", 4], ["merchant_address", "123 Fake St"], ["merchant_name", "Sneaker Store Emporium"]]
+  [1m[35m (8.4ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 130ms (ActiveRecord: 113.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 16:59:32 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.5ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (6.2ms)
+Completed 200 OK in 30ms (Views: 27.0ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 16:59:33 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.5ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (8.9ms)
+Completed 200 OK in 35ms (Views: 31.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 17:01:36 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.6ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (14.6ms)
+Completed 200 OK in 60ms (Views: 56.3ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 17:01:55 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.9ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (12.8ms)
+Completed 200 OK in 45ms (Views: 38.6ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 17:03:36 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.7ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (7.8ms)
+Completed 200 OK in 55ms (Views: 27.2ms | ActiveRecord: 7.3ms)
+
+
+Started POST "/remove" for 127.0.0.1 at 2018-05-14 17:03:40 -0300
+Processing by PurchaseController#remove as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"8ABCtW2FITXQWv/sXOOhnanifL0dBFtgtzs+T7tuJG9BiZVPfn9L+6r6Dj84nYd37vJ+0+TOkexerkRppF1EFg==", "commit"=>"Remover"}
+Completed 500 Internal Server Error in 104378ms (ActiveRecord: 0.0ms)
+
+
+  
+SystemExit (exit):
+  
+(pry):7:in `abort'
+(pry):7:in `remove'
+app/controllers/purchase_controller.rb:20:in `remove'
+Started GET "/" for 127.0.0.1 at 2018-05-14 17:05:40 -0300
+  [1m[35m (6.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.9ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (19.1ms)
+Completed 200 OK in 425ms (Views: 360.7ms | ActiveRecord: 14.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 17:06:23 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.8ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (11.7ms)
+Completed 200 OK in 90ms (Views: 86.6ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 17:07:00 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.9ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (21.3ms)
+Completed 200 OK in 181ms (Views: 126.2ms | ActiveRecord: 10.0ms)
+
+
+Started POST "/remove" for 127.0.0.1 at 2018-05-14 17:07:09 -0300
+Processing by PurchaseController#remove as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"3pt/Fv2BWMp7bAMY8m/yB5uJiS9MtjbHgKkizxI71tFvEqjs7nsyBAHM8suWEdTt3JmLQbV8/EtpPFjpDQi2qA==", "purchase_id"=>"26", "commit"=>"Remover"}
+  [1m[36mPurchase Load (1.4ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" WHERE "purchases"."id" = $1 LIMIT $2[0m  [["id", 26], ["LIMIT", 1]]
+  [1m[35m (0.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (7.5ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 26]]
+  [1m[35m (20.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 500 Internal Server Error in 15396ms (ActiveRecord: 30.2ms)
+
+
+  
+NameError (undefined local variable or method `purchase_index_path' for #<PurchaseController:0x000055b43b5adc60>
+Did you mean?  purchase_remove_path):
+  
+app/controllers/purchase_controller.rb:22:in `remove'
+Started POST "/remove" for 127.0.0.1 at 2018-05-14 17:07:48 -0300
+Processing by PurchaseController#remove as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"3pt/Fv2BWMp7bAMY8m/yB5uJiS9MtjbHgKkizxI71tFvEqjs7nsyBAHM8suWEdTt3JmLQbV8/EtpPFjpDQi2qA==", "purchase_id"=>"26", "commit"=>"Remover"}
+Completed 500 Internal Server Error in 6973ms (ActiveRecord: 0.0ms)
+
+
+  
+SystemExit (exit):
+  
+(pry):4:in `abort'
+(pry):4:in `remove'
+app/controllers/purchase_controller.rb:20:in `remove'
+Started GET "/" for 127.0.0.1 at 2018-05-14 17:08:02 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (4.1ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (198.0ms)
+Completed 200 OK in 985ms (Views: 643.9ms | ActiveRecord: 25.4ms)
+
+
+Started POST "/remove" for 127.0.0.1 at 2018-05-14 17:08:09 -0300
+Processing by PurchaseController#remove as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"to3WlnAs8PmCySav2Db20jEhNpz04c8mpG9N11fMywsHBAFsY9aaN/hp13y8SNA4djE08g0rBapN+jfxSP+rcg==", "purchase_id"=>"23", "commit"=>"Remover"}
+  [1m[36mPurchase Load (0.5ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" WHERE "purchases"."id" = $1 LIMIT $2[0m  [["id", 23], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[31mDELETE FROM "purchases" WHERE "purchases"."id" = $1[0m  [["id", 23]]
+  [1m[35m (33.5ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 6201ms (ActiveRecord: 34.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-05-14 17:08:16 -0300
+Processing by PurchaseController#index as HTML
+  [1m[36mPurchase Load (0.8ms)[0m  [1m[34mSELECT  "purchases".* FROM "purchases" ORDER BY "purchases"."id" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  Rendering purchases/index.erb within layouts/application
+  Rendered purchases/index.erb within layouts/application (6.6ms)
+Completed 200 OK in 30ms (Views: 26.9ms | ActiveRecord: 0.8ms)
+
+

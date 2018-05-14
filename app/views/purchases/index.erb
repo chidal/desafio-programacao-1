@@ -1,0 +1,61 @@
+<div style="display: block; border: 2px solid #ddd; text-align: center;">
+  <%= form_tag({action: :upload}, multipart: true) do %>
+    <%= file_field_tag :document %>
+
+    <%= submit_tag "Ler & Salvar" %>
+  <% end %>
+</div>
+
+</br>
+</br>
+<b style= "text-align: center; display: block;"> %%%%%%%%%%%%% </b>
+
+</br>
+
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #ddd;
+}
+</style>
+
+<% if @last_purchases.size <= 0 %>
+  <%= "Não há compras recentes!" %>
+<% elsif @last_purchases.size > 0 %>
+  <table>
+    <tbody>
+      <th>Nome do Comprador</th>
+      <th>Descrição do Produto</th>
+      <th>Preço do Produto</th>
+      <th>Quantidade do Produto</th>
+      <th>Nome do Mercador</th>
+      <th>Endereço do Mercador</th>
+      <th></th>
+    </tbody>
+    <% @last_purchases.each do |purchase| %>
+      <tr>
+        <%= form_tag({action: :remove}, multipart: true) do %>
+          <td><%= label_tag "purchaser_name_purchase_id_#{purchase.id}", purchase.purchaser_name %></br></td>
+          <td><%= label_tag "item_description_purchase_id_#{purchase.id}", purchase.item_description %></br></td>
+          <td><%= label_tag "item_price_purchase_id_#{purchase.id}", purchase.item_price %></br></td>
+          <td><%= label_tag "purchase_count_purchase_id_#{purchase.id}", purchase.purchase_count %></br></td>
+          <td><%= label_tag "merchant_name_purchase_id_#{purchase.id}", purchase.merchant_name %></br></td>
+          <td><%= label_tag "merchant_address_purchase_id_#{purchase.id}", purchase.merchant_address %></br></td>
+          <%= hidden_field_tag "purchase_id", purchase.id %>
+          <td><%= submit_tag "Remover", "data-id" => purchase.id %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
