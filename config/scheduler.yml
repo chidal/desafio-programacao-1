@@ -1,0 +1,20 @@
+# :concurrency: 1 ~> Investigate later!
+:pidfile: tmp/pids/sidekiq.pid
+:logfile: log/sidekiq.log
+staging:
+  :concurrency: 2
+production:
+  :concurrency: 10
+:queues:
+  - default
+  - mailers
+  - cleaner
+
+tasks: &tasks
+  FileCleaner:
+    every: ["2h"]
+    queue: cleaner
+    description: 'Destroys old files on the public/uploads directory'
+
+:schedule:
+  <<: *tasks

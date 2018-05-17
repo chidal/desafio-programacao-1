@@ -25,6 +25,7 @@ gem 'uglifier', '>= 1.3.0'
 
 # Using Sidekiq for background job processing and operations
 gem 'sidekiq'
+gem 'sidekiq-scheduler'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
