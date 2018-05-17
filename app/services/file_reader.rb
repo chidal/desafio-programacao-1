@@ -21,7 +21,7 @@ class FileReader
 
   private
   def save_original_io()
-    File.open(Rails.root.join('public', 'uploads', "#{File.basename(@file.path, ".tab")}_#{Time.now.strftime("%Y-%m-%d-%H_%M")}.tab"), 'wb') do |file|
+    File.open(Rails.root.join('public', 'uploads', "#{File.basename(@file.path, ".tab")}_#{Time.now.strftime("%Y-%m-%d-%H+%M")}.tab"), 'wb') do |file|
       file.write @content
     end
   end

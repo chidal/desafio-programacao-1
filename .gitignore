@@ -1,5 +1,5 @@
 Gemfile.lock
-/public/uploads
+/public/uploads/*
 /log
 *.gem
 *.rbc
