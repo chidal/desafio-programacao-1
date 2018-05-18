@@ -1,5 +1,7 @@
 class FileCleaner
   include Sidekiq::Worker
+
+  # Generate a new instance without having to do a "Worker".new.perform()
   def self.execute; new.perform(); end
 
   def perform
