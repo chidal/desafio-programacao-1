@@ -20,4 +20,8 @@ class PurchaseController < ApplicationController
     redirect_to root_path and return
   end
 
+  def q
+    require 'pry'; binding.pry
+  end
+
 end

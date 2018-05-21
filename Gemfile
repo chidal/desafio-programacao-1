@@ -11,6 +11,12 @@ gem 'pg'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.6'
 
+# Using searchkick for the implementation of search functionalities and other dependencies, such Typhoeus and Oj
+search_gems = ['searchkick', 'ox', 'oj', 'typhoeus']
+search_gems.each do |search_gem|
+  gem search_gem
+end
+
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 
@@ -47,6 +53,7 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'capybara-webkit'
 end
 
 group :development do
